@@ -3,13 +3,14 @@
 // 다른 프레임워크를 사용하게 되면 독립적이지 못 하기 때문에 안 좋다. 마이크로 프론트엔드에서는 이런 것을 피해야 한다.
 
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import {
   createGenerateClassName,
   StylesProvider,
 } from "@material-ui/core/styles";
 import Header from "./components/Header";
 import MarketingApp from "./components/MarketingApp";
+import AuthApp from "./components/AuthApp";
 
 const generateClassName = createGenerateClassName({
   productionPrefix: "co",
@@ -21,7 +22,10 @@ export default () => {
       <StylesProvider generateClassName={generateClassName}>
         <div>
           <Header />
-          <MarketingApp />
+          <Switch>
+            <Route path="/auth" component={AuthApp} />
+            <Route path="/" component={MarketingApp} />
+          </Switch>
         </div>
       </StylesProvider>
     </BrowserRouter>
